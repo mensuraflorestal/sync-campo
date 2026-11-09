@@ -1,0 +1,16 @@
+{
+  "name": "sync-campo-mobile",
+  "version": "1.0.0",
+  "description": "RS Florestal - Sincronizador de Campo Nativo",
+  "scripts": {
+    "build": "echo Web assets ready"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/android": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0"
+  }
+}
+

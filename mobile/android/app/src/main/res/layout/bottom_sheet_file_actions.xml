@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#F6F6F2"
+    android:padding="20dp">
+
+    <!-- Handle superior -->
+    <View
+        android:layout_width="36dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#CFD6CD"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Cabeçalho do Arquivo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_bento_white"
+        android:padding="14dp"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/sheet_img_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_pdf"
+            android:background="@drawable/bg_icon_box"
+            android:padding="9dp"
+            android:contentDescription="Arquivo" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp">
+
+            <TextView
+                android:id="@+id/sheet_txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nome do Documento"
+                android:textColor="#1B221B"
+                android:textSize="14.5sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="2" />
+
+            <TextView
+                android:id="@+id/sheet_txt_meta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="396 KB • Disponível Offline"
+                android:textColor="#717A71"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Opção 1: Abrir Documento -->
+    <LinearLayout
+        android:id="@+id/sheet_btn_open"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_bento_white"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Visualizar Documento"
+            android:textColor="#1B221B"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_chevron_right"
+            android:contentDescription="Abrir" />
+
+    </LinearLayout>
+
+    <!-- Opção 2: Salvar Offline / Remover -->
+    <LinearLayout
+        android:id="@+id/sheet_btn_toggle_offline"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_bento_white"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/sheet_icon_offline_action"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/sheet_txt_offline_action"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Salvar no Aparelho (Offline)"
+            android:textColor="#1B221B"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_chevron_right"
+            android:contentDescription="Ação" />
+
+    </LinearLayout>
+
+    <!-- Opção 3: Abrir com Outro App -->
+    <LinearLayout
+        android:id="@+id/sheet_btn_share"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_bento_white"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Abrir em Outro Aplicativo"
+            android:textColor="#1B221B"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_chevron_right"
+            android:contentDescription="Externo" />
+
+    </LinearLayout>
+
+</LinearLayout>

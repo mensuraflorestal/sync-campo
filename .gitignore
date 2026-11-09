@@ -1,0 +1,80 @@
+# Ambientes Virtuais e Dependencias
+.venv/
+venv/
+ENV/
+env/
+node_modules/
+mobile/node_modules/
+
+# Credenciais, Segredos e Tokens Privados (NUNCA SUBIR)
+.env
+*.env
+service_account.json
+credentials.json
+token.json
+client_secret*.json
+*.pem
+*.key
+*.cert
+*.pfx
+*.p12
+
+# Cloudflare Tunnel e Tokens de Tunel
+config.yml
+*.json
+!package.json
+!package-lock.json
+!capacitor.config.json
+
+# Binarios e Executaveis Grandes
+cloudflared.exe
+nssm.exe
+*.exe
+*.dll
+*.so
+
+# Instaladores gerados (APKs)
+*.apk
+app.apk
+static/app.apk
+mobile/android/app/build/outputs/apk/
+
+# Scripts locais de blindagem do servidor
+blindar_servidor*.bat
+
+# Armazenamento Local, Cache e Logs do Servidor
+storage/
+storage/cache/
+storage/demo_files/
+*.log
+*.tmp
+*.part
+*.bak
+LINKS_DE_DIVULGACAO.txt
+
+# Arquivos de Build do Android / Gradle
+.gradle/
+build/
+mobile/android/.gradle/
+mobile/android/build/
+mobile/android/app/build/
+mobile/android/capacitor-cordova-android-plugins/build/
+mobile/android/local.properties
+mobile/android/**/local.properties
+mobile/www/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# IDEs e Editores
+.idea/
+.vscode/
+*.suo
+*.user
+*.swp
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F2"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/main_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ========================================================= -->
+        <!-- 1. TOP BAR MINIMALISTA & BENTO CARDS (ESTILO EDITORIAL)   -->
+        <!-- ========================================================= -->
+        <LinearLayout
+            android:id="@+id/top_header_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="8dp">
+
+            <!-- Cabeçalho Minimalista: Botão Voltar Visível + Título + Ícones -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/btn_header_back"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_bento_white"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="#2B3A2A"
+                    android:visibility="gone"
+                    android:contentDescription="Voltar página" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Documentos SST"
+                        android:textColor="#1B221B"
+                        android:textSize="21sp"
+                        android:textStyle="bold"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RS Florestal"
+                        android:textColor="#717A71"
+                        android:textSize="12.5sp"
+                        android:layout_marginTop="1dp"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <!-- Indicador de Rede Minimalista -->
+                <TextView
+                    android:id="@+id/txt_network_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Online"
+                    android:textColor="#2B3A2A"
+                    android:textSize="11.5sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_status_badge"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+            </LinearLayout>
+
+            <!-- Bento Grid de Resumo (2 Cards Brancos Lado a Lado) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false">
+
+                <!-- Card 1: Documentos Offline -->
+                <LinearLayout
+                    android:id="@+id/card_offline_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_bento_white"
+                    android:padding="14dp"
+                    android:layout_marginEnd="6dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Base Offline"
+                            android:textColor="#717A71"
+                            android:textSize="12sp"
+                            android:singleLine="true" />
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:contentDescription="Detalhe" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_offline_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 / 0"
+                        android:textColor="#1B221B"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="6dp"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/txt_offline_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Salvos no aparelho"
+                        android:textColor="#717A71"
+                        android:textSize="11sp"
+                        android:layout_marginTop="1dp"
+                        android:singleLine="true" />
+
+                </LinearLayout>
+
+                <!-- Card 2: Ação de Sincronização -->
+                <LinearLayout
+                    android:id="@+id/btn_header_sync"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_bento_white"
+                    android:padding="14dp"
+                    android:layout_marginStart="6dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Sincronização"
+                            android:textColor="#717A71"
+                            android:textSize="12sp"
+                            android:singleLine="true" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/ic_sync"
+                            app:tint="#2B3A2A"
+                            android:contentDescription="Sincronizar" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_sync_card_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Atualizar"
+                        android:textColor="#1B221B"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="6dp"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/txt_sync_card_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Toque para sincronizar"
+                        android:textColor="#717A71"
+                        android:textSize="11sp"
+                        android:layout_marginTop="1dp"
+                        android:singleLine="true" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Barra de Busca Suave -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_search_bar"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="8dp">
+
+                    <ImageView
+                        android:id="@+id/img_app_logo"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_search"
+                        app:tint="#717A71"
+                        android:contentDescription="Buscar" />
+
+                    <EditText
+                        android:id="@+id/edit_search"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@null"
+                        android:hint="Pesquisar documento, setor ou atividade..."
+                        android:textColorHint="#8C968C"
+                        android:textColor="#1B221B"
+                        android:textSize="13.5sp"
+                        android:singleLine="true"
+                        android:imeOptions="actionSearch" />
+
+                    <ImageButton
+                        android:id="@+id/btn_clear_search"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@android:drawable/ic_menu_close_clear_cancel"
+                        app:tint="#717A71"
+                        android:visibility="gone"
+                        android:contentDescription="Limpar busca" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_toggle_layout"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_search_bar"
+                    android:src="@drawable/ic_grid_view"
+                    app:tint="#2B3A2A"
+                    android:contentDescription="Alternar visualização" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ========================================================= -->
+        <!-- 2. PAINEL DE PROGRESSO DE DOWNLOAD EM TEMPO REAL          -->
+        <!-- ========================================================= -->
+        <LinearLayout
+            android:id="@+id/layout_sync_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_sage_container"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="6dp"
+            android:padding="14dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/txt_sync_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sincronizando documentos..."
+                    android:textColor="#1B221B"
+                    android:textStyle="bold"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/txt_sync_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 / 0 (0%)"
+                    android:textColor="#2B3A2A"
+                    android:textStyle="bold"
+                    android:textSize="12.5sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_sync_current_file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Preparando..."
+                android:textColor="#717A71"
+                android:textSize="11.5sp"
+                android:singleLine="true"
+                android:ellipsize="middle"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="6dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_sync"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:max="100"
+                android:progress="0"
+                android:indeterminate="false"
+                android:progressTint="#2B3A2A" />
+        </LinearLayout>
+
+        <!-- ========================================================= -->
+        <!-- 3. BARRA DE NAVEGAÇÃO DE PÁGINA / SETOR ATUAL             -->
+        <!-- ========================================================= -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="6dp">
+
+            <!-- Botão Voltar em Destaque (Pílula Verde-Oliva Visível) -->
+            <LinearLayout
+                android:id="@+id/btn_folder_back"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_chip_selected"
+                android:paddingStart="12dp"
+                android:paddingEnd="14dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="#FFFFFF"
+                    android:contentDescription="Voltar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="Voltar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_folder_home"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Início"
+                android:textColor="#2B3A2A"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/bg_pill_offline"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txt_breadcrumb_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Setores"
+                android:textColor="#1B221B"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:ellipsize="start"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/txt_items_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="0 itens"
+                android:textColor="#717A71"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- ========================================================= -->
+        <!-- 4. LISTA CLEAN DE PASTAS E DOCUMENTOS (SEM SWIPE REFRESH) -->
+        <!-- ========================================================= -->
+        <FrameLayout
+            android:id="@+id/list_frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_drive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="96dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical" />
+
+            <!-- Estado Vazio Minimalista -->
+            <LinearLayout
+                android:id="@+id/layout_empty_state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="32dp"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/bg_icon_box">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_folder"
+                        android:contentDescription="Vazio" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/txt_empty_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nenhum documento encontrado"
+                    android:textColor="#1B221B"
+                    android:textSize="15.5sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="14dp" />
+
+                <TextView
+                    android:id="@+id/txt_empty_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Toque no cartão de Sincronização acima para atualizar."
+                    android:textColor="#717A71"
+                    android:textSize="13sp"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <!-- ========================================================= -->
+    <!-- 5. BARRA INFERIOR FLUTUANTE VERDE-MUSGO (IGUAL À IMAGEM)  -->
+    <!-- ========================================================= -->
+    <LinearLayout
+        android:id="@+id/bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="14dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_bottom_nav"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:elevation="8dp">
+
+        <!-- Aba 1: Setores -->
+        <LinearLayout
+            android:id="@+id/nav_tab_home"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/bg_nav_item_active"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/nav_icon_home"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_folder"
+                app:tint="#E2C178"
+                android:contentDescription="Setores" />
+
+            <TextView
+                android:id="@+id/nav_txt_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Setores"
+                android:textColor="#F6F6F2"
+                android:textSize="12.5sp"
+                android:textStyle="bold"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <!-- Aba 2: Offline -->
+        <LinearLayout
+            android:id="@+id/nav_tab_offline"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/nav_icon_offline"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_check_circle"
+                app:tint="#8A9A88"
+                android:contentDescription="Offline" />
+
+            <TextView
+                android:id="@+id/nav_txt_offline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Offline"
+                android:textColor="#8A9A88"
+                android:textSize="12.5sp"
+                android:textStyle="bold"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <!-- Aba 3: Fixados -->
+        <LinearLayout
+            android:id="@+id/nav_tab_saved"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/nav_icon_saved"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_star_filled"
+                app:tint="#8A9A88"
+                android:contentDescription="Fixados" />
+
+            <TextView
+                android:id="@+id/nav_txt_saved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Fixados"
+                android:textColor="#8A9A88"
+                android:textSize="12.5sp"
+                android:textStyle="bold"
+                android:singleLine="true" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_sync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

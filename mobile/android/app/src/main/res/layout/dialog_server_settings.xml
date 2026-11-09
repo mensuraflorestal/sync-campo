@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="22dp"
+    android:background="#F6F6F2">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Conexão do Servidor"
+        android:textColor="#1B221B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aponte a câmera para o QR Code exibido no servidor para vincular o aparelho automaticamente."
+        android:textColor="#717A71"
+        android:textSize="13sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Botão Principal: Escanear QR Code -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialog_btn_scan_qr"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Escanear QR Code"
+        android:textColor="#FFFFFF"
+        android:textSize="13.5sp"
+        android:textStyle="bold"
+        app:backgroundTint="#2B3A2A"
+        app:cornerRadius="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ou informe o endereço manualmente:"
+        android:textColor="#717A71"
+        android:textSize="12sp"
+        android:layout_marginBottom="6dp" />
+
+    <EditText
+        android:id="@+id/dialog_edit_server_url"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:hint="https://..."
+        android:textColor="#1B221B"
+        android:textColorHint="#8C968C"
+        android:textSize="13.5sp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:background="@drawable/bg_bento_white"
+        android:inputType="textUri"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/dialog_txt_test_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#2B3A2A"
+        android:textSize="12.5sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="18dp">
+
+        <Button
+            android:id="@+id/dialog_btn_cancel"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Cancelar"
+            android:textColor="#717A71"
+            android:textSize="12.5sp" />
+
+        <Button
+            android:id="@+id/dialog_btn_test"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Testar"
+            android:textColor="#2B3A2A"
+            android:textSize="12.5sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dialog_btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Salvar"
+            android:textColor="#FFFFFF"
+            android:textSize="12.5sp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="#2B3A2A"
+            app:cornerRadius="10dp"
+            android:layout_marginStart="6dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

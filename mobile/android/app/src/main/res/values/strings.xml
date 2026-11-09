@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Documentos SST - RS Florestal</string>
+    <string name="title_activity_main">Documentos SST - RS Florestal</string>
+    <string name="package_name">br.com.florestalrs.synccampo</string>
+    <string name="custom_url_scheme">br.com.florestalrs.synccampo</string>
+</resources>

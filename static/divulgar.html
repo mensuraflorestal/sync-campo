@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instalação do App - Documentos SST RS Florestal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #F6F6F2;
+      color: #2B3A2A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+    .card {
+      background: #FFFFFF;
+      max-width: 460px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 36px 28px;
+      box-shadow: 0 10px 30px rgba(43, 58, 42, 0.08);
+      text-align: center;
+      border: 1px solid #E6EAE3;
+    }
+    .badge {
+      display: inline-block;
+      background: #E6EAE3;
+      color: #2B3A2A;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      color: #2B3A2A;
+    }
+    p.sub {
+      font-size: 14px;
+      color: #5F6B5E;
+      margin-bottom: 24px;
+    }
+    .qr-container {
+      background: #FAFAF8;
+      border: 2px dashed #D3DCD0;
+      border-radius: 16px;
+      padding: 20px;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .qr-container img {
+      width: 220px;
+      height: 220px;
+      display: block;
+      border-radius: 8px;
+    }
+    .btn-download {
+      display: block;
+      width: 100%;
+      background: #2B3A2A;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      transition: background 0.2s;
+    }
+    .btn-download:hover {
+      background: #1D281C;
+    }
+    .steps {
+      text-align: left;
+      background: #F6F6F2;
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #3B4A3A;
+    }
+    .steps ol {
+      margin-left: 18px;
+    }
+    .steps li {
+      margin-bottom: 8px;
+    }
+    .steps li:last-child {
+      margin-bottom: 0;
+    }
+    .server-url {
+      word-break: break-all;
+      font-family: monospace;
+      font-size: 12px;
+      color: #5F6B5E;
+      margin-top: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Operações de Campo</span>
+    <h1>Documentos SST</h1>
+    <p class="sub">RS Florestal - Sincronização 100% Offline</p>
+
+    <div class="qr-container">
+      <img id="qr-img" src="/api/qr/apk" alt="QR Code para Download">
+    </div>
+
+    <a href="/sync_campo.apk" class="btn-download" download>
+      Baixar Aplicativo (APK)
+    </a>
+
+    <div class="steps">
+      <ol>
+        <li><strong>Instalar:</strong> Aponte a câmera do celular para o QR Code acima ou clique no botão para baixar.</li>
+        <li><strong>Abrir:</strong> Após instalar, abra o app <em>Documentos SST</em>.</li>
+        <li><strong>Conectar:</strong> Toque no ícone de engrenagem no app e aponte para este mesmo QR Code para conectar.</li>
+      </ol>
+    </div>
+
+    <div class="server-url">
+      Servidor: <span id="current-url"></span>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('current-url').textContent = window.location.origin;
+    document.getElementById('qr-img').src = '/api/qr/apk?url=' + encodeURIComponent(window.location.origin);
+  </script>
+</body>
+</html>
+

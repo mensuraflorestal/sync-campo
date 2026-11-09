@@ -1,0 +1,13 @@
+{
+  "appId": "br.com.florestalrs.synccampo",
+  "appName": "RS Florestal",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}
+

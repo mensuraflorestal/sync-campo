@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#2C3B2B</item>
+        <item name="colorPrimaryDark">#F6F6F2</item>
+        <item name="colorAccent">#2C3B2B</item>
+        <item name="android:statusBarColor">#F6F6F2</item>
+        <item name="android:navigationBarColor">#F6F6F2</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">#F6F6F2</item>
+        <item name="android:statusBarColor">#F6F6F2</item>
+        <item name="android:navigationBarColor">#F6F6F2</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#F6F6F2</item>
+        <item name="android:navigationBarColor">#F6F6F2</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

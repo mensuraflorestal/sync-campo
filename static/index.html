@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1410">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="RS Florestal">
+  <title>RS Florestal - Documentos de Campo</title>
+  
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body class="m3-theme">
+
+  <!-- ========================================== -->
+  <!-- 1. MATERIAL 3 TOP APP BAR & SEARCH BAR    -->
+  <!-- ========================================== -->
+  <header class="m3-search-bar-container">
+    <div class="m3-search-bar">
+      <!-- Logo ou Botão de Voltar da Busca/Subpasta -->
+      <div id="top-nav-box" class="m3-icon-avatar" title="RS Florestal">
+        <img src="logo.png" alt="RS Florestal" class="m3-top-logo">
+      </div>
+      
+      <!-- Campo de Busca Estilo Material You -->
+      <div class="m3-search-input-box">
+        <input 
+          type="text" 
+          id="search-input" 
+          class="m3-search-input" 
+          placeholder="Pesquisar arquivos e pastas..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- Botão para limpar busca -->
+      <button id="search-clear-btn" class="m3-icon-btn" style="display: none;" title="Limpar busca">
+        ✕
+      </button>
+
+      <!-- Badge de Status de Conexão -->
+      <div id="network-badge" class="m3-network-badge online" title="Status da Conexão com o PC">
+        <span class="status-dot"></span>
+        <span id="network-text">Online</span>
+      </div>
+
+      <!-- Botão de Configurações do Servidor -->
+      <button id="btn-open-server-settings" class="m3-icon-btn m3-gear-btn" title="Configurar Servidor / Conexão">
+        ⚙️
+      </button>
+    </div>
+  </header>
+
+  <!-- Banner Informativo de Servidor Desconectado (Discreto) -->
+  <div id="server-offline-banner" class="m3-alert-banner" style="display: none;">
+    <div class="m3-alert-text">
+      <span class="m3-alert-icon">⚠️</span>
+      <div>
+        <div class="m3-alert-title">Servidor Central Desconectado</div>
+        <div class="m3-alert-desc">Usando arquivos salvos no celular. Conecte ao PC para sincronizar.</div>
+      </div>
+    </div>
+    <button id="btn-banner-connect" class="m3-alert-action">Conectar</button>
+  </div>
+
+  <div id="demo-badge" class="m3-demo-strip" style="display: none;">
+    <span>💡</span>
+    <span id="demo-text">Modo de demonstração offline com documentos de campo.</span>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. MATERIAL 3 FILTER CHIPS (PÍLULAS)       -->
+  <!-- ========================================== -->
+  <div class="m3-filter-chips-container">
+    <div class="m3-filter-chips-scroll">
+      <button class="m3-chip active" data-filter="all">
+        <span class="m3-chip-check">✓</span>
+        <span>Todos</span>
+      </button>
+      <button class="m3-chip" data-filter="offline">
+        <span class="m3-chip-check">✓</span>
+        <span>Salvos Offline</span>
+      </button>
+      <button class="m3-chip" data-filter="folders">
+        <span class="m3-chip-check">✓</span>
+        <span>Pastas</span>
+      </button>
+      <button class="m3-chip" data-filter="pdf">
+        <span class="m3-chip-check">✓</span>
+        <span>PDFs / OS</span>
+      </button>
+      <button class="m3-chip" data-filter="sheets">
+        <span class="m3-chip-check">✓</span>
+        <span>Planilhas</span>
+      </button>
+      <button class="m3-chip" data-filter="images">
+        <span class="m3-chip-check">✓</span>
+        <span>Mapas</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 3. BARRA DE CAMINHO (BREADCRUMB & VIEW TOGGLE) -->
+  <!-- ========================================== -->
+  <div class="m3-subhead-bar">
+    <div class="m3-breadcrumb-box">
+      <button id="btn-drive-back" class="m3-btn-crumb-back" title="Voltar pasta anterior" style="display: none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div id="breadcrumb-trail" class="m3-breadcrumb-trail">
+        <!-- Preenchido via app.js -->
+      </div>
+    </div>
+    <div class="m3-subhead-actions">
+      <span id="files-counter" class="m3-files-counter">...</span>
+      <button id="btn-toggle-view" class="m3-btn-view-toggle" title="Alternar Grade / Lista">
+        <span id="view-toggle-icon">⊞</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 4. CONTEÚDO PRINCIPAL (TELA DO APLICATIVO) -->
+  <!-- ========================================== -->
+  <main class="m3-content-wrapper">
+
+    <!-- ABA 1 & 2: EXPLORADOR DE ARQUIVOS (DRIVE / OFFLINE) -->
+    <div id="drive-content-area" class="m3-drive-view view-grid">
+      
+      <!-- Seção de Pastas -->
+      <section id="drive-folders-section" class="m3-section" style="display: none;">
+        <div class="m3-section-title-row">
+          <span class="m3-section-title">Pastas</span>
+          <span id="folders-counter" class="m3-section-badge">0</span>
+        </div>
+        <div id="folders-container" class="m3-folders-grid"></div>
+      </section>
+
+      <!-- Seção de Arquivos -->
+      <section id="drive-files-section" class="m3-section" style="display: none;">
+        <div class="m3-section-title-row">
+          <span class="m3-section-title">Arquivos</span>
+          <span id="files-section-counter" class="m3-section-badge">0</span>
+        </div>
+        <div id="files-container" class="m3-files-grid"></div>
+      </section>
+
+      <!-- Estado Vazio -->
+      <div id="drive-empty-state" class="m3-empty-state" style="display: none;">
+        <div class="m3-empty-icon">📁</div>
+        <h3 class="m3-empty-title">Esta pasta está vazia</h3>
+        <p class="m3-empty-desc">Nenhum arquivo ou subpasta disponível aqui.</p>
+      </div>
+
+    </div>
+
+    <!-- ABA 3: PAINEL DA CENTRAL & SINCRONIZAÇÃO (ACESSADO PELA BOTTOM BAR) -->
+    <div id="tab-sync-view" class="m3-tab-sync-container" style="display: none;">
+      
+      <div class="m3-sync-card">
+        <div class="m3-sync-header">
+          <div class="m3-sync-avatar">⚡</div>
+          <div>
+            <h3 class="m3-sync-card-title">Central de Campo</h3>
+            <p class="m3-sync-card-subtitle">RS Florestal • Sincronizador Local</p>
+          </div>
+        </div>
+
+        <div class="m3-sync-stats-grid">
+          <div class="m3-sync-stat-item">
+            <span class="m3-stat-label">Na Nuvem (Drive)</span>
+            <span id="stat-total-files" class="m3-stat-val">-- arquivos</span>
+          </div>
+          <div class="m3-sync-stat-item">
+            <span class="m3-stat-label">Salvo no Celular</span>
+            <span id="stat-offline-files" class="m3-stat-val success">0 offline</span>
+          </div>
+        </div>
+
+        <!-- Botão Principal de Sincronização na Aba Central -->
+        <button id="btn-sync-all" class="m3-btn-sync-primary">
+          <span id="sync-icon">🔄</span>
+          <span id="sync-btn-label">Sincronizar Arquivos Agora</span>
+        </button>
+
+        <!-- Barra de Progresso do Download -->
+        <div id="sync-progress-box" class="m3-progress-box">
+          <div class="m3-progress-bar-bg">
+            <div id="sync-progress-fill" class="m3-progress-bar-fill"></div>
+          </div>
+          <div class="m3-progress-labels">
+            <span id="sync-progress-status">Baixando documentos...</span>
+            <span id="sync-progress-pct">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="m3-card-actions-list">
+        <button id="btn-open-server-from-sync" class="m3-action-row">
+          <div class="m3-action-row-icon">⚙️</div>
+          <div class="m3-action-row-content">
+            <div class="m3-action-row-title">Conexão com o Computador</div>
+            <div class="m3-action-row-desc">Escanear QR Code ou configurar IP do servidor</div>
+          </div>
+          <div class="m3-action-row-arrow">›</div>
+        </button>
+
+        <button id="btn-open-apk-modal" class="m3-action-row">
+          <div class="m3-action-row-icon">📱</div>
+          <div class="m3-action-row-content">
+            <div class="m3-action-row-title">Instalador do Aplicativo (.apk)</div>
+            <div class="m3-action-row-desc">QR Code para outros celulares da equipe baixarem</div>
+          </div>
+          <div class="m3-action-row-arrow">›</div>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- 5. FLOATING ACTION BUTTON (FAB)            -->
+  <!-- ========================================== -->
+  <button id="m3-fab-sync" class="m3-fab" title="Sincronizar arquivos para o celular">
+    <span class="m3-fab-icon">🔄</span>
+    <span class="m3-fab-label">Sincronizar</span>
+  </button>
+
+  <!-- ========================================== -->
+  <!-- 6. MATERIAL 3 BOTTOM NAVIGATION BAR        -->
+  <!-- ========================================== -->
+  <nav class="m3-bottom-nav">
+    <button class="m3-nav-item active" data-nav="files">
+      <div class="m3-nav-pill">
+        <span class="m3-nav-icon">📂</span>
+      </div>
+      <span class="m3-nav-text">Arquivos</span>
+    </button>
+    <button class="m3-nav-item" data-nav="offline">
+      <div class="m3-nav-pill">
+        <span class="m3-nav-icon">📥</span>
+      </div>
+      <span class="m3-nav-text">Offline</span>
+    </button>
+    <button class="m3-nav-item" data-nav="sync">
+      <div class="m3-nav-pill">
+        <span class="m3-nav-icon">⚡</span>
+      </div>
+      <span class="m3-nav-text">Central</span>
+    </button>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- 7. BOTTOM SHEET DE AÇÕES DO ARQUIVO        -->
+  <!-- ========================================== -->
+  <div id="file-bottom-sheet" class="m3-sheet-backdrop" style="display: none;">
+    <div class="m3-bottom-sheet">
+      <div class="m3-sheet-handle"></div>
+      
+      <div class="m3-sheet-file-header">
+        <div id="sheet-file-icon" class="m3-sheet-file-icon">📄</div>
+        <div class="m3-sheet-file-details">
+          <div id="sheet-file-title" class="m3-sheet-file-title">documento.pdf</div>
+          <div id="sheet-file-meta" class="m3-sheet-file-meta">396 KB • 02/10 • Salvo no aparelho</div>
+        </div>
+      </div>
+
+      <div class="m3-sheet-menu">
+        <button id="sheet-action-open" class="m3-sheet-menu-item">
+          <span class="m3-menu-icon">👁️</span>
+          <span class="m3-menu-text">Abrir / Visualizar Documento</span>
+        </button>
+
+        <button id="sheet-action-toggle-offline" class="m3-sheet-menu-item">
+          <span id="sheet-offline-icon" class="m3-menu-icon">📥</span>
+          <span id="sheet-offline-text" class="m3-menu-text">Salvar Offline</span>
+        </button>
+
+        <button id="sheet-action-external" class="m3-sheet-menu-item">
+          <span class="m3-menu-icon">↗</span>
+          <span class="m3-menu-text">Abrir em Aplicativo Externo</span>
+        </button>
+      </div>
+
+      <div class="m3-sheet-footer">
+        <button id="sheet-action-close" class="m3-sheet-btn-cancel">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 8. MODAL DE VISUALIZAÇÃO DE ARQUIVO (PDF/FOTO) -->
+  <!-- ========================================== -->
+  <div id="file-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <span id="modal-file-icon">📄</span>
+          <div id="modal-filename" class="modal-title">Visualizar Documento</div>
+        </div>
+        <div class="modal-header-actions">
+          <button id="btn-modal-fullscreen" class="btn-header-action" title="Abrir no leitor nativo do celular">
+            <span>↗</span> Tela Cheia
+          </button>
+          <button id="btn-close-modal" class="btn-close-modal" title="Fechar">&times;</button>
+        </div>
+      </div>
+
+      <!-- Barra de Controle do Visualizador de PDF -->
+      <div id="pdf-controls" class="pdf-controls-bar" style="display: none;">
+        <div class="pdf-nav-group">
+          <button id="pdf-prev-page" class="btn-pdf-ctrl">◀ Anterior</button>
+          <span id="pdf-page-num" class="pdf-page-indicator">Pág 1 / 1</span>
+          <button id="pdf-next-page" class="btn-pdf-ctrl">Próxima ▶</button>
+        </div>
+        <div class="pdf-zoom-group">
+          <button id="pdf-zoom-out" class="btn-pdf-ctrl" title="Diminuir Zoom">🔍 -</button>
+          <button id="pdf-zoom-fit" class="btn-pdf-ctrl" title="Ajustar à Tela">Largura</button>
+          <button id="pdf-zoom-in" class="btn-pdf-ctrl" title="Aumentar Zoom">🔍 +</button>
+        </div>
+      </div>
+
+      <!-- Conteúdo do arquivo exibido aqui -->
+      <div id="modal-content" class="modal-body"></div>
+
+      <div class="modal-footer">
+        <button id="btn-modal-close" class="btn-modal secondary">Fechar</button>
+        <a id="btn-modal-download" class="btn-modal primary" href="#" download>Salvar Cópia</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 9. MODAL DE CONFIGURAÇÃO DO SERVIDOR       -->
+  <!-- ========================================== -->
+  <div id="server-settings-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 style="margin: 0; font-size: 1.1rem; color: var(--primary);">⚙️ Conexão com o Computador</h3>
+        <button id="btn-close-server-settings" class="btn-close-circle">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 18px 20px;">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.4;">
+          Aponte a câmera para o <b>QR Code na tela do computador</b> (no terminal ou em <code>localhost:8000</code>) para conectar e sincronizar instantaneamente.
+        </p>
+
+        <button id="btn-scan-qr" class="m3-btn-sync-primary" style="margin-bottom: 14px;">
+          <span>📷</span>
+          <span>Escanear QR Code do Computador</span>
+        </button>
+
+        <div id="qr-reader" style="width: 100%; border-radius: 12px; overflow: hidden; margin-bottom: 14px; display: none;"></div>
+
+        <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;">
+          Ou digite a URL do Servidor manualmente:
+        </label>
+        <input 
+          type="url" 
+          id="server-url-input" 
+          placeholder="https://...trycloudflare.com ou http://192.168.x.x:8000" 
+          style="width: 100%; box-sizing: border-box; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 0.88rem; margin-bottom: 12px;"
+        >
+
+        <div id="server-test-result" style="font-size: 0.85rem; padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; display: none;"></div>
+
+        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+          <button id="btn-reset-server-url" class="btn-modal secondary" style="font-size: 0.85rem; padding: 8px 14px;">Restaurar Padrão</button>
+          <button id="btn-save-server-url" class="btn-modal primary" style="font-size: 0.85rem; padding: 8px 16px;">Salvar & Conectar</button>
+        </div>
+
+        <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-color); text-align: center;">
+          <a id="link-open-apk-from-settings" href="#" style="display: inline-flex; align-items: center; gap: 6px; color: var(--primary); font-size: 0.85rem; text-decoration: none; font-weight: 600;">
+            <span>📱</span> Baixar Instalador Direto (sync_campo.apk) / QR Code
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 10. MODAL DE QR CODE PARA BAIXAR O APK     -->
+  <!-- ========================================== -->
+  <div id="apk-download-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 420px; text-align: center;">
+      <div class="modal-header">
+        <h3 style="margin: 0; font-size: 1.1rem; color: var(--primary); display: flex; align-items: center; gap: 8px;">
+          <span>📱</span> Baixar APK Android
+        </h3>
+        <button id="btn-close-apk-modal" class="btn-close-circle">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px;">
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4;">
+          Aponte a câmera do celular para o QR Code abaixo para baixar o instalador oficial (<b>sync_campo.apk</b>):
+        </p>
+
+        <div style="background: #ffffff; padding: 14px; border-radius: 16px; display: inline-block; box-shadow: 0 4px 16px rgba(0,0,0,0.3); margin-bottom: 16px;">
+          <img id="apk-qr-img" src="/api/qr/apk" alt="QR Code para Download do APK" style="width: 220px; height: 220px; display: block; border-radius: 8px;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <a id="link-direct-apk" href="/sync_campo.apk" download class="m3-btn-sync-primary" style="text-decoration: none;">
+            <span>📥</span> Baixar Arquivo .apk
+          </a>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <input 
+            type="text" 
+            id="apk-url-display" 
+            readonly 
+            style="flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-muted); font-size: 0.78rem;"
+          >
+          <button id="btn-copy-apk-link" class="btn-modal secondary" style="font-size: 0.78rem; padding: 8px 12px; white-space: nowrap;">Copiar Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 11. SNACKBAR NATIVO DO ANDROID             -->
+  <!-- ========================================== -->
+  <div id="m3-snackbar" class="m3-snackbar">
+    <span id="snackbar-text">Mensagem</span>
+  </div>
+
+  <!-- Bibliotecas Locais -->
+  <script src="vendor/html5-qrcode.min.js"></script>
+  <script src="vendor/pdfjs/pdf.min.js"></script>
+  <script src="app.js?v=4"></script>
+</body>
+</html>
